@@ -14,7 +14,8 @@ exports.getAllPokemons = (req, res) => {
   getAllPokemons(connection, (error, results) => {
     if (error) {
       res.status(500).json({
-        message: "Une erreur s'est produite lors de la récupération des Pokémon.",
+        message:
+          "Une erreur s'est produite lors de la récupération des Pokémon.",
       });
     } else {
       res.json(results);
@@ -29,10 +30,13 @@ exports.getPokemonById = (req, res) => {
   getPokemonById(connection, id, (error, result) => {
     if (error) {
       res.status(500).json({
-        message: "Une erreur s'est produite lors de la récupération du Pokémon.",
+        message:
+          "Une erreur s'est produite lors de la récupération du Pokémon.",
       });
     } else if (!result) {
-      res.status(404).json({ message: "Le Pokémon demandé n'a pas été trouvé." });
+      res
+        .status(404)
+        .json({ message: "Le Pokémon demandé n'a pas été trouvé." });
     } else {
       res.json(result);
     }
@@ -42,6 +46,7 @@ exports.getPokemonById = (req, res) => {
 // J'ajoute un nouveau Pokémon
 exports.addPokemon = (req, res) => {
   const connection = req.app.get("connection");
+  const { name, type } = req.body; // Extraire name et type du corps de la requête
   if (!name || !type) {
     return res
       .status(400)
